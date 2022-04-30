@@ -16,6 +16,11 @@ header a {
   font-weight: bold;
   text-decoration: none;
 }
+
+main {
+  padding: 1rem;
+}
+
 .products {
   display: flex;
   flex-wrap: wrap;
@@ -28,5 +33,8 @@ header a {
 }
 .product img {
   width: 100%;
-  max-width: 400px;
+  max-width: 300px;
+}
+.product-info {
+  padding: 1rem;
 }
