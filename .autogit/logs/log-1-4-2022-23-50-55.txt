@@ -1,0 +1,22 @@
+-------------------- Auto-Git Log --------------------
+		Sun May 01 2022 23:50:55 GMT+0100 (West Africa Standard Time)
+------------------------------------------------------
+
+Modified files:
+* frontend/package-lock.json
+* frontend/package.json
+* frontend/src/App.js
+* frontend/src/index.css
+* frontend/src/index.js
+* frontend/src/screens/HomeScreen.js
+
+
+Created files:
+
+
+Deleted files:
+* package-lock.json
+* package.json
+
+
+Renamed files:
