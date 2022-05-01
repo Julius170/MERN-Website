@@ -1,4 +1,4 @@
-import { useEffect, useReducer, } from 'react';
+import { useEffect,useReducer, useState } from 'react';
 import { Link } from 'react-router-dom';
 import  axios from 'axios';
 import logger from 'use-reducer-logger';
@@ -21,23 +21,23 @@ const reducer = (state, action) => {
 
 
 function HomeScreen () {
-    const [{loading, error, products}, dispatch] = useReducer(logger(reducer), {
+    const [{loading, error}, dispatch] = useReducer(logger(reducer), {
         products: [],
-        loading: true, error: ''
-    })
-    // const[products, setProducts] = useState([]);
+        loading: true, 
+        error: '',
+    });
+    const [products, setProducts] = useState([]);
     useEffect(()=>{
         const fetchData = async () => {
             dispatch({type: "FETCH_REQUEST" });
             try {
                 const result = await axios.get("http://localhost:5000/api/products");
-                dispatch({type: "FETCH_SUCCESS", payload: result.data});                       
-                
+                dispatch({type: "FETCH_SUCCESS", payload: result.data });                       
+                setProducts(result.data);
             } catch(err) {
                 dispatch({type:"FETCH_FAIL", payload: err.message});
             }
-
-            // setProducts(result.data);
+            
         };
         fetchData();
     }, [])
@@ -50,9 +50,8 @@ function HomeScreen () {
                         :
                         error? (<div>{error}</div>)
                         :
-                        (
-                    products.map((product) => 
-                    (<div className='product' key={product.slug}>
+                        products.map((product) => (
+                        (<div className='product' key={product.slug}>
                         <Link to={`/product/${product.slug}`}>
                         <img src={product.image} alt={product.name}/>
                         </Link>
@@ -63,10 +62,9 @@ function HomeScreen () {
                             <p><strong>${product.price}</strong></p>
                             <button>Add to cart</button>
                         </div>
-                    </div>))
-                    )
-                    }
-
+                    </div>
+                    ))
+                )}
                 </div>
         </div>
     );
