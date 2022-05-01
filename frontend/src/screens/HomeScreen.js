@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import  axios from 'axios';
-// import data from '../data';
+
 
 
 function HomeScreen () {
     const[products, setProducts] = useState([]);
     useEffect(()=>{
         const fetchData = async () => {
-            const result = await axios.get("/api/products");
+            const result = await axios.get("http://localhost:5000/api/products")                       
+
+            console.log(result);
             setProducts(result.data);
         };
         fetchData();
@@ -38,4 +40,9 @@ function HomeScreen () {
     );
 }
 
+
+
 export default HomeScreen;
+
+
+
