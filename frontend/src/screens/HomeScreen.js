@@ -19,7 +19,7 @@ const reducer = (state, action) => {
 
 
     }
-}
+};
 
 
 function HomeScreen () {
