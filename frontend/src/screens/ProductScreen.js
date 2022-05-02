@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useReducer, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Badge, Button, Card, CarouselItem, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
+import { Badge, Button, Card, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import Rating from "../components/Rating";
 import { Helmet } from "react-helmet-async";
@@ -41,7 +41,7 @@ function ProductScreen() {
         const fetchData = async () => {
             dispatch({type: "FETCH_REQUEST" });
             try {
-                const result = await axios.get(`http://localhost:5000/api/product/slug/${slug}`);
+                const result = await axios.get(`http://localhost:5000/api/products/slug/${slug}`);
                 dispatch({type: "FETCH_SUCCESS", payload: result.data });                       
                 setProducts(result.data);
             } catch(err) {
@@ -55,23 +55,25 @@ function ProductScreen() {
 const {state, dispatch: ctxDispatch} = useContext(Store);
 const {cart} = state;
 
-
 const addToCartHandler = async() => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1: 1;
-    const { data } = await axios.get(`api/products/${product._id}`);
+    const { data } = await axios.get(`http://localhost:5000/api/product/${product._id}`);
     if (data.countInStock < quantity) {
-        window.alert("Sorry, Product is our of stock")
+        window.alert("Sorry, Product is our of stock");
+        return;
     }
     ctxDispatch({
         type: 'CART_ADD_ITEM', 
-        payload: {...product, quantity: 1},
+        payload: {...product, quantity },
     });
 
 }
     return ( 
        loading? (
-            <LoadingBox />
+           <LoadingBox/>
+
+
         )
                 
         : 
