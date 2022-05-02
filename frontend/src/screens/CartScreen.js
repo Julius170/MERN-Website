@@ -7,21 +7,26 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function CartScreen() {
-const { state, dispath: ctxDispatch } = useContext(Store); 
+const { state, dispatch: ctxDispatch } = useContext(Store); 
     const {
         cart: { cartItems },
     } = state;
-
-    const updateCardHandler = async (item, quantity) => {
+    
+    const updateCartHandler = async (item, quantity) => {
         const { data } = await axios.get(`http://localhost:5000/api/product/${item._id}`);
         if (data.countInStock < quantity) {
             window.alert("Sorry, Product is out of stock");
             return;
-        }
+        };
+        
         ctxDispatch({
             type: 'CART_ADD_ITEM', 
             payload: {...item, quantity },
         });
+        
+    };
+    const removeItemHandler = (item) => {
+        ctxDispatch ({type: 'CART_REMOVE_ITEM', payload:item });
     }
     return (
         <div>
@@ -51,19 +56,20 @@ const { state, dispath: ctxDispatch } = useContext(Store);
                                         </Col>
                                         <Col md={3}>
                                             <Button variant='light' disabled={item.quantity === 1}
-                                                onClick = {() => updateCardHandler(item, item.quantity - 1)}>
+                                            onClick = {() => updateCartHandler( item, item.quantity - 1 )}>
                                                 <i className='fas fa-minus-circle'>minus</i>
                                             </Button>{' '}
-                                            <span>{item.quantity}</span>{' '}
+                                            <span>{item.quantity}</span>
                                             <Button variant='light' 
-                                            onClick = {() => updateCardHandler(item, item.quantity + 1)}
-                                            disabled={item.quantity === item.countInStock}>
+                                            onClick = {()=> updateCartHandler( item, item.quantity + 1 )}                                            disabled={item.quantity === item.countInStock}>
                                                 <i className='fas fa-plus-circle'>add</i>
                                             </Button>
                                         </Col>
                                         <Col md={3}>${item.price}</Col>
                                         <Col md={2}>
-                                            <Button variant='light'>
+                                            <Button 
+                                              onClick={() => removeItemHandler(item)}                                            
+                                            variant='light'>
                                                 <i className='fas fa-trash'>delete</i>
                                             </Button>
                                         </Col>
@@ -81,7 +87,7 @@ const { state, dispath: ctxDispatch } = useContext(Store);
 
                             <h3>
                                 Total ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                                items): $
+                                item): $
                                 {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                             </h3>
                             </ListGroupItem>
