@@ -11,9 +11,9 @@ import LinkContainer from 'react-router-bootstrap/LinkContainer';
 function App() {
   return (
      <BrowserRouter>
-       <div >
+       <div className='d-flex flex-column site-container'>
          <header >
-            <Navbar bg='dark' varient='dark'>
+            <Navbar bg='dark'  varient='dark'>
               <Container>
                 <LinkContainer to="/">
                 <Navbar.Brand>Amazoma</Navbar.Brand>
@@ -24,13 +24,18 @@ function App() {
 
 
         <main>
-          <Routes>
-            <Route path='/' element={<HomeScreen />} />
-            <Route path="/product/:slug" element={<ProductScreen />} />
-          </Routes>
+          <Container>
 
-          
+            <Routes>
+              <Route path='/' element={<HomeScreen />} />
+              <Route path="/product/:slug" element={<ProductScreen />} />
+            </Routes>
+          </Container>
+
         </main>
+        <footer>
+          <div className='text-center'>All rights reserved</div>
+        </footer>
       </div>
     </BrowserRouter>
   );
