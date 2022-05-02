@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Badge, Button, Card, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import Rating from "../components/Rating";
+import { Helmet } from "react-helmet-async";
 // import Product from "../components/Products";
 
 const reducer = (state, action) => {
@@ -66,7 +67,10 @@ function ProductScreen() {
                 <Col md={3}>
                     <ListGroup variant='flush'>
                         <ListGroupItem>
-                            <h1>{product.name}</h1>
+                            <Helmet>
+                            <title>{product.name}</title>
+
+                            </Helmet>
                         </ListGroupItem>
                         <ListGroupItem>
                             <Rating rating = {product.rating}
