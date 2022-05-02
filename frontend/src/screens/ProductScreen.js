@@ -5,6 +5,9 @@ import { Badge, Button, Card, ListGroup, ListGroupItem, Row } from 'react-bootst
 import { Col } from 'react-bootstrap';
 import Rating from "../components/Rating";
 import { Helmet } from "react-helmet-async";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import { getError } from "../utils";
 // import Product from "../components/Products";
 
 const reducer = (state, action) => {
@@ -41,7 +44,7 @@ function ProductScreen() {
                 dispatch({type: "FETCH_SUCCESS", payload: result.data });                       
                 setProducts(result.data);
             } catch(err) {
-                dispatch({type:"FETCH_FAIL", payload: err.message});
+                dispatch({type:"FETCH_FAIL", payload: getError(err)});
             }
             
         };
@@ -50,10 +53,14 @@ function ProductScreen() {
  
 
     return ( 
-        loading? <div>Loading...</div>
+       loading? (
+            <LoadingBox />
+        )
+                
         : 
-        error? 
-        <div>{error}</div>
+        error? (
+            <MessageBox variant="danger">{error}</MessageBox>
+        )
         :
         <div>
             <Row>
