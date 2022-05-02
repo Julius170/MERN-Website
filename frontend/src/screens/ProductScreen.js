@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useReducer, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ListGroup, ListGroupItem, Row } from 'react-bootstrap';
+import { Badge, Button, Card, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import Rating from "../components/Rating";
 // import Product from "../components/Products";
@@ -84,7 +84,45 @@ function ProductScreen() {
 
                     </ListGroup>
                 </Col>
-                <Col md={3}></Col>
+                <Col md={3}>
+                    <Card>
+                        <Card.Body>
+                            <ListGroup variant="flush"> 
+                                <ListGroupItem>
+                                    <Row>
+                                        <Col>Price:</Col>
+                                        <Col>${product.price}</Col>
+
+                                    </Row>
+                                </ListGroupItem>
+                                <ListGroupItem>
+                                    <Row>
+                                        <Col>Status:</Col>
+                                        <Col>
+                                            {product.countInStock>0? (
+                                                <Badge bg='success'>In Stock</Badge>
+                                            ): (
+                                                <Badge bg='success'>Unavailable</Badge>
+                                            )}
+                                        </Col>
+                                        
+                                    </Row>
+                                </ListGroupItem>
+                                {product.countInStock > 0 && (
+                                    <ListGroupItem>
+                                        <div className="d-grid">
+                                            <Button variant='primary'>
+                                                Add to Cart
+                                            </Button>
+                                        </div>
+                                    </ListGroupItem>
+                                )
+
+                                }
+                            </ListGroup>
+                        </Card.Body>
+                    </Card>
+                </Col>
             </Row>
         </div>)
     
