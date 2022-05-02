@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useReducer, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Badge, Button, Card, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
+import { Badge, Button, Card, CarouselItem, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import Rating from "../components/Rating";
 import { Helmet } from "react-helmet-async";
@@ -52,8 +52,17 @@ function ProductScreen() {
         fetchData();
     }, [slug]);
  
-const {state, dispatch: ctxDispatch} = useContext(Store) 
-const addToCartHandler = () => {
+const {state, dispatch: ctxDispatch} = useContext(Store);
+const {cart} = state;
+
+
+const addToCartHandler = async() => {
+    const existItem = cart.cartItems.find((x) => x._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1: 1;
+    const { data } = await axios.get(`api/products/${product._id}`);
+    if (data.countInStock < quantity) {
+        window.alert("Sorry, Product is our of stock")
+    }
     ctxDispatch({
         type: 'CART_ADD_ITEM', 
         payload: {...product, quantity: 1},
