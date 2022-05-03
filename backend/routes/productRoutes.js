@@ -17,7 +17,7 @@ productRouter.get('/slug/:slug', async(req, res)=> {
         res.send(product)
     } else {
         res.send(404).send({message: 'Product Not found'});
-    }
+    };
 });
 
 
@@ -27,5 +27,5 @@ productRouter.get('/:id', async(req, res)=> {
         res.send(product)
     } else {
         res.send(404).send({message: 'Product Not found'});
-    }
+    };
 });
