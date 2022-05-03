@@ -2,8 +2,9 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../models/userModel.js';
 import generateToken from '../utils.js';
-const userRouter = express.Router();
 import expressAsyncHandler from 'express-async-handler';
+
+const userRouter = express.Router();
 
 userRouter.post(
     '/signin', 
@@ -20,7 +21,10 @@ userRouter.post(
                 });
                 return;
             }
+        }else {
+            res.status(401).send({message: 'Invalid email or password' });
+
         }
-        res.status(401).send({message: 'Invalid email or password' });
     })
 );
+export default userRouter; 

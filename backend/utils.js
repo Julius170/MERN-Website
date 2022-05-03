@@ -14,4 +14,4 @@ export const generateToken = (user) => {
 }
 
 
-export default userRouter;
+export default generateToken;
