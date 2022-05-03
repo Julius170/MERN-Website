@@ -5,6 +5,14 @@ import cors from 'cors';
 const app  = express();
 app.use(cors());
 
+dotenv.config();
+
+mongoose.connect(process.env.MONGODB_URI).then(() => {
+    console.log('connected to db')
+}).catch(err =>{
+    console.log(err.message);
+});
+
 
 app.get('/api/products', (req, res)=> {
     res.send(data.products)
