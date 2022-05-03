@@ -36,7 +36,7 @@ function HomeScreen () {
         const fetchData = async () => {
             dispatch({type: "FETCH_REQUEST" });
             try {
-                const result = await axios.get("http://localhost:5000/api/products");
+                const result = await axios.get("http://localhost:5000/api/product");
                 dispatch({type: "FETCH_SUCCESS", payload: result.data });                       
                 setProducts(result.data);
             } catch(err) {
@@ -53,21 +53,21 @@ function HomeScreen () {
             </Helmet>
             <h1>Featured Products </h1>
             <div className="products">
+
                 {
                     loading? (
-                    <LoadingBox />
+                        <LoadingBox />
                         )
-                    :
-                    error? (
-                        <MessageBox variant="danger">{error}</MessageBox>
-                    )
-                    : ( <Row>
-
-                    {products.map((product) => (
-                        <Col key={product.slug} sm={6} md={4} lg={3} className='mb-3'>
-                                <Product product={product}></Product>
-                        </Col>
-                    ))}
+                        :
+                        error? (
+                            <MessageBox variant="danger">{error}</MessageBox>
+                            )
+                            : ( <Row>
+                            {products.map((product) => (
+                            <Col key={product.slug} sm={6} md={4} lg={3} className='mb-3'>
+                                    <Product product={product}></Product>
+                            </Col>
+                    ))};
                     </Row>
                     )}
             </div>
