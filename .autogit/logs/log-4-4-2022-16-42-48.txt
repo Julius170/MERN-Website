@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Wed May 04 2022 16:42:48 GMT+0100 (West Africa Standard Time)
+------------------------------------------------------
+
+Modified files:
+* frontend/package-lock.json
+* frontend/package.json
+
+
+Created files:
+* frontend/src/screens/ShippingAddressScreen.js
+
+
+Deleted files:
+
+
+Renamed files:

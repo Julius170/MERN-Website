@@ -1,7 +1,7 @@
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Rating from './Rating';
-import {useContext} from 'react';
+import { React, useContext} from 'react';
 import { Store } from '../Store';
 import axios from 'axios';
 
