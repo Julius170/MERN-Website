@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 
 import Spinner from 'react-bootstrap/Spinner';
-import { React } from 'react';
+import React  from 'react';
 
 
 export default function LoadingBox() {
