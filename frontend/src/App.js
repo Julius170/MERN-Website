@@ -21,17 +21,22 @@ function App() {
     };
   return (
      <BrowserRouter>
-       <div className='d-flex flex-column site-container'>
-         <ToastContainer position="bottom-container" limit={1} />
+      <div className='d-flex flex-column site-container'>
+      <ToastContainer 
+      position="bottom-center" 
+      draggable={true} 
+      limit={1} />
          <header >
             <Navbar bg='dark'  varient='dark'>
               <Container>
                 <LinkContainer to="/">
-                <Navbar.Brand>Amazona</Navbar.Brand>
+                <Navbar.Brand>
+                  <p style={{color:"white"}}> <b>Amazona</b> </p>
+                </Navbar.Brand>
                 </LinkContainer>
                 <Nav className='me-auto'>
                   <Link to='/cart' className='nav-link'>
-                    Cart
+                    <p style={{color:"white"}}>Cart</p>
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg='warning'>
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -39,7 +44,7 @@ function App() {
                     )}
                   </Link>
                   {userInfo ? (
-                    <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+                    <NavDropdown title= {<text style={{color:"white"}}>{userInfo.name}</text>} id="basic-nav-dropdown">
                       <LinkContainer to='/profile'>
                         <NavDropdown.Item>User Profile</NavDropdown.Item>
                       </LinkContainer>
@@ -51,12 +56,12 @@ function App() {
                       className='dropdown-item'
                       to='#signout'
                       onClick={signoutHandler}>
-                        Sign Out  
+                        Sing Out
                       </Link>
                     </NavDropdown>
                   ) : (
                     <Link className="nav-link" to='/signin'>
-                    Sign In 
+                      <p style={{color:"white"}}>Sign In</p>
                     </Link>
                   )}
 

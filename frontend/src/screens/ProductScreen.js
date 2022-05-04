@@ -72,10 +72,7 @@ const addToCartHandler = async() => {
     return ( 
        loading? (
            <LoadingBox/>
-
-
-        )
-                
+        )                
         : 
         error? (
             <MessageBox variant="danger">{error}</MessageBox>
