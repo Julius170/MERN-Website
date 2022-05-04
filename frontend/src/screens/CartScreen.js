@@ -1,4 +1,4 @@
-import { React, useContext }from 'react';
+import React, { useContext }from 'react';
 import { Store }from '../Store';
 import { Helmet } from 'react-helmet-async';
 import { Row, Col, ListGroupItem, Button, Card, ListGroup } from 'react-bootstrap';
@@ -63,12 +63,12 @@ export default function CartScreen() {
                                         <Col md={3}>
                                             <Button variant='light' disabled={item.quantity === 1}
                                             onClick = {() => updateCartHandler( item, item.quantity - 1 )}>
-                                                <i className='fas fa-minus-circle'>minus</i>
+                                                <i className='fas fa-minus-circle'></i>
                                             </Button>{' '}
                                             <span>{item.quantity}</span>
                                             <Button variant='light' 
                                             onClick = {()=> updateCartHandler( item, item.quantity + 1 )}                                            disabled={item.quantity === item.countInStock}>
-                                                <i className='fas fa-plus-circle'>add</i>
+                                                <i className='fas fa-plus-circle'></i>
                                             </Button>
                                         </Col>
                                         <Col md={3}>${item.price}</Col>
@@ -76,7 +76,7 @@ export default function CartScreen() {
                                             <Button 
                                               onClick={() => removeItemHandler(item)}                                            
                                             variant='light'>
-                                                <i className='fas fa-trash'>delete</i>
+                                                <i className='fas fa-trash'></i>
                                             </Button>
                                         </Col>
                                     </Row>

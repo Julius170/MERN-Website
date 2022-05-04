@@ -12,6 +12,9 @@ body {
 
 }
 
+title {
+  color: #fff
+}
 
 main {
   flex: 1;
@@ -21,6 +24,7 @@ main {
   background-color: #f0c040;
   color: #000;
 }
+
 .products {
   display: flex;
   flex-wrap: wrap;
@@ -29,16 +33,18 @@ main {
 
 .rating span {
   color: #ffc000;
-} 
+}
 
 .product {
   border: 1px #404040 solid;
   margin: 1rem;
 }
+
 .product img {
   width: 100%;
   max-width: 300px;
 }
+
 .product-info {
   padding: 1rem;
 }
