@@ -49,7 +49,7 @@ function HomeScreen () {
     return( 
         <div>
             <Helmet> 
-                 <title>Amazona</title> 
+                <title>Amazona</title> 
             </Helmet>
             <h1>Featured Products </h1>
             <div className="products">
@@ -67,7 +67,7 @@ function HomeScreen () {
                             <Col key={product.slug} sm={6} md={4} lg={3} className='mb-3'>
                                     <Product product={product}></Product>
                             </Col>
-                    ))};
+                    ))}
                     </Row>
                     )}
             </div>

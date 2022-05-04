@@ -1,16 +1,20 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Form, Container, Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import Axios from 'axios';
-import { useState } from 'react';
-
+import { useContext, useEffect, useState } from 'react';
+import { Store } from '../Store';
+import { toast } from 'react-toastify';
+import { getError } from '../utils';
 
 export default function SigninScreen() {
+    const navigate = useNavigate();
     const { search } = useLocation();
     const redirectInUrl = new URLSearchParams(search).get('redirect');
     const redirect = redirectInUrl ? redirectInUrl : '/';
     
-    
+    const { state, dispatch: ctxDispatch } = useContext(Store);
+    const  { userInfo } = state;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
@@ -21,10 +25,18 @@ export default function SigninScreen() {
                 email,
                 password,
             });
-            console.log(data);
+            ctxDispatch({type: 'USER_SIGNIN', payload: data })
+            localStorage.setItem('userInfo', JSON.stringify(data));
+            navigate(redirect || '/');
         }catch (err) {
+            toast.error(getError(err));
         }
-    }
+    };
+    useEffect(() => {
+        if (userInfo)  {
+            navigate(redirect);
+        };
+    }, [navigate, redirect, userInfo]);
 
     return(
     
