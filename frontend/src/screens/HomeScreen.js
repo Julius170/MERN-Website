@@ -1,4 +1,4 @@
-import { React, useEffect,useReducer, useState } from 'react';
+import React, { useEffect,useReducer, useState } from 'react';
 import  axios from 'axios';
 import logger from 'use-reducer-logger';
 import { Row } from 'react-bootstrap';

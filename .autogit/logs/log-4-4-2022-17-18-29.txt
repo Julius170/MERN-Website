@@ -1,0 +1,31 @@
+-------------------- Auto-Git Log --------------------
+		Wed May 04 2022 17:18:29 GMT+0100 (West Africa Standard Time)
+------------------------------------------------------
+
+Modified files:
+* frontend/package-lock.json
+* frontend/package.json
+* frontend/src/App.js
+* frontend/src/Store.js
+* frontend/src/components/LoadingBox.js
+* frontend/src/components/MessageBox.js
+* frontend/src/components/Products.js
+* frontend/src/components/Rating.js
+* frontend/src/index.js
+* frontend/src/screens/CartScreen.js
+* frontend/src/screens/HomeScreen.js
+* frontend/src/screens/ProductScreen.js
+* frontend/src/screens/ShippingAddressScreen.js
+* frontend/src/screens/SigninScreen.js
+
+
+Created files:
+* .autogit/logs/log-4-4-2022-16-42-48.txt
+* package-lock.json
+* package.json
+
+
+Deleted files:
+
+
+Renamed files:
