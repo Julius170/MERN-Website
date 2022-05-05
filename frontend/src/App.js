@@ -10,6 +10,7 @@ import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen'; 
 import {ToastContainer } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
+import ShippingAddressScreen from './screens/ShippingAddressScreen';
 
 function App() {
   const {state, dispatch: ctxDispatch } = useContext(Store); 
@@ -18,6 +19,7 @@ function App() {
     const signoutHandler = () => {
       ctxDispatch({ type: "USER_SIGNOUT" });
       localStorage.removeItem('userInfo');
+      localStorage.removeItem('shippingAddress');
     };
   return (
      <BrowserRouter>
@@ -31,12 +33,12 @@ function App() {
               <Container>
                 <LinkContainer to="/">
                 <Navbar.Brand>
-                  <p style={{color:"white"}}> <b>Amazona</b> </p>
+                  <text style={{color:"white"}}> <b>Amazona</b> </text>
                 </Navbar.Brand>
                 </LinkContainer>
                 <Nav className='me-auto'>
                   <Link to='/cart' className='nav-link'>
-                    <p style={{color:"white"}}>Cart</p>
+                    <text style={{color:"white"}}>Cart</text>
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg='warning'>
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -61,7 +63,7 @@ function App() {
                     </NavDropdown>
                   ) : (
                     <Link className="nav-link" to='/signin'>
-                      <p style={{color:"white"}}>Sign In</p>
+                      <text style={{color:"white"}}>Sign In</text>
                     </Link>
                   )}
 
@@ -79,6 +81,7 @@ function App() {
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path='/cart' element={<CartScreen />} />
               <Route path='/signin' element={<SigninScreen />} />
+              <Route path='/shipping' element={<ShippingAddressScreen />} />
               <Route path='/' element={<HomeScreen />} />
             </Routes>
           </Container>
