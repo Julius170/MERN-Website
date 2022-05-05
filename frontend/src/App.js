@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import SignupScreen from './screens/SignupScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
 
 
 function App() {
@@ -37,12 +38,12 @@ function App() {
               <Container>
                 <LinkContainer to="/">
                 <Navbar.Brand>
-                  <text style={{color:"white"}}> <b>Amazona</b> </text>
+                  <span style={{color:"white"}}> <b>Amazona</b> </span>
                 </Navbar.Brand>
                 </LinkContainer>
                 <Nav className='me-auto'>
                   <Link to='/cart' className='nav-link'>
-                    <text style={{color:"white"}}>Cart</text>
+                    <span style={{color:"white"}}>Cart</span>
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg='warning'>
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -67,7 +68,7 @@ function App() {
                     </NavDropdown>
                   ) : (
                     <Link className="nav-link" to='/signin'>
-                      <text style={{color:"white"}}>Sign In</text>
+                      <span style={{color:"white"}}>Sign In</span>
                     </Link>
                   )}
 
@@ -88,6 +89,7 @@ function App() {
               <Route path='/signup' element={<SignupScreen />} />
               <Route path='/shipping' element={<ShippingAddressScreen />} />
               <Route path='/payment' element={<PaymentMethodScreen />} />
+              <Route path='/placeorder' element={<PlaceOrderScreen />} />
               <Route path='/' element={<HomeScreen />} />
             </Routes>
           </Container>
