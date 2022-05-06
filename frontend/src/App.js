@@ -51,7 +51,7 @@ function App() {
                     )}
                   </Link>
                   {userInfo ? (
-                    <NavDropdown title= {<text style={{color:"white"}}>{userInfo.name}</text>} id="basic-nav-dropdown">
+                    <NavDropdown title= {<span style={{color:"white"}}>{userInfo.name}</span>} id="basic-nav-dropdown">
                       <LinkContainer to='/profile'>
                         <NavDropdown.Item>User Profile</NavDropdown.Item>
                       </LinkContainer>

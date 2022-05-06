@@ -36,7 +36,7 @@ export default function ShippingAddressScreen() {
                 postalCode,
                 country,
             },
-        });
+        })
         localStorage.setItem(
             'shippingAddress',
             JSON.stringify({
@@ -46,8 +46,8 @@ export default function ShippingAddressScreen() {
                 postalCode,
                 country,
             })
-        );
-        navigate('/payment');
+            );
+            navigate('/payment');
     }
   return (
     <div>

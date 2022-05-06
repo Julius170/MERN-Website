@@ -1,14 +1,40 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { Card, Button, ListGroup, Row, Col, ListGroupItem } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { Store } from '../Store';
+import { getError } from '../utils';
+import Axios  from 'axios';
+import LoadingBox from '../components/LoadingBox';
+
+
+const reducer = ( state, action ) => {
+    switch (action.type) {
+        case 'CREATE_REQUEST':
+            return{...state, loading: true};
+        case 'CREAT_SUCCESS':
+            return {...state, loading: false };
+        case 'CREAT_FAIL':
+            return {...state, loading: false };
+        default:
+            return state;
+
+    }
+}
 
 export default function PlaceOrderScreen() {
-    const { state, } = useContext(Store);
-    const { cart, } = state;
-    const navigate = useNavigate
+    const navigate = useNavigate();
+
+    const [{ loading }, dispatch] = useReducer(reducer, {
+        loading:false,
+    });
+
+    const { state, dispatch: ctxDispatch} = useContext(Store);
+    const { cart, userInfo} = state;
+
+     
 
     const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 1234.2345 =>123.23
     cart.itemPrice = round2(
@@ -18,13 +44,46 @@ export default function PlaceOrderScreen() {
     cart.taxPrice = round2(0.15 * cart.itemPrice);
     cart.totalPrice = cart.itemPrice + cart.shippingPrice + cart.taxPrice;
 
-    const placeOrderHandler = async ()=> {
-        useEffect(()=>{
-            if(!cart.paymentMethod) {
-                navigate('/payment');
-            }
-        }, [navigate, cart])
+    const placeOrderHandler = async () => {
+        try {
+            dispatch({type: 'CREATE_REQUEST' });
+            const {data} = await Axios.post(
+                'http://localhost:5000/api/orders',
+                {
+                    orderItems: cart.cartItems,
+                    shippingAddress: cart.shippingAddress,
+                    paymentMethod: cart.paymentMethod,
+                    itemPrice: cart.itemPrice,
+                    taxPrice: cart.taxPrice,
+                    totalPrice: cart.totalPrice,
+                },
+                {
+                    headers: {
+                        authorization: `Bearer ${userInfo.token}`,
+                    },
+                }
+            );
+            ctxDispatch({type: 'CART_CLEAR'});
+            dispatch({type: 'CREATE_SUCCESS'});
+            localStorage.removeItem('cartItems');
+            navigate(`http://localhost:5000/order/${data.order._id}`);
+            alert("Suppose to show");
+            console.log("Suppose to show");
+
+
+        }catch (err) {
+            dispatch({type: 'CREATE_FAIL'});
+            toast.error(getError(err));
+
+        };
     };
+    useEffect(()=>{
+        if(!cart.paymentMethod) {
+        navigate('/payment');        
+    }
+    },[navigate, cart]);
+
+
   return (
     <div>
         <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
@@ -115,9 +174,10 @@ export default function PlaceOrderScreen() {
                             <Button 
                             type='button'
                             onClick={placeOrderHandler}
-                            disavle={cart.cartItems.length === 0}>
-                                Place Holder
+                            disabled={cart.cartItems.length === 0}>
+                                Place Order
                             </Button>
+                            {loading && <LoadingBox></LoadingBox>}
                             </div>
                         </ListGroup.Item>
                     </ListGroup>
