@@ -15,6 +15,7 @@ import SignupScreen from './screens/SignupScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
 
 
 function App() {
@@ -35,45 +36,48 @@ function App() {
       draggable={true} 
       limit={1} />
          <header >
-            <Navbar bg='dark'  varient='dark'>
+            <Navbar bg='dark'  varient='dark' expand='lg'>
               <Container>
                 <LinkContainer to="/">
                 <Navbar.Brand>
                   <span style={{color:"white"}}> <b>Amazona</b> </span>
                 </Navbar.Brand>
                 </LinkContainer>
-                <Nav className='me-auto'>
-                  <Link to='/cart' className='nav-link'>
-                    <span style={{color:"white"}}>Cart</span>
-                    {cart.cartItems.length > 0 && (
-                      <Badge pill bg='warning'>
-                        {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                      </Badge>
-                    )}
-                  </Link>
-                  {userInfo ? (
-                    <NavDropdown title= {<span style={{color:"white"}}>{userInfo.name}</span>} id="basic-nav-dropdown">
-                      <LinkContainer to='/profile'>
-                        <NavDropdown.Item>User Profile</NavDropdown.Item>
-                      </LinkContainer>
-                      <LinkContainer to='/orderhistory'>
-                        <NavDropdown.Item>Order History</NavDropdown.Item>
-                      </LinkContainer>
-                      <NavDropdown.Divider />
-                      <Link 
-                      className='dropdown-item'
-                      to='#signout'
-                      onClick={signoutHandler}>
-                        Sing Out
-                      </Link>
-                    </NavDropdown>
-                  ) : (
-                    <Link className="nav-link" to='/signin'>
-                      <span style={{color:"white"}}>Sign In</span>
+                <Navbar.Toggle aria-controls='basic-navbar-nav'/>
+                <Navbar.Collapse id="basic-navbar-nav">
+                  <Nav className='me-auto w-100 justify-content-end'>
+                    <Link to='/cart' className='nav-link'>
+                      <span style={{color:"white"}}>Cart</span>
+                      {cart.cartItems.length > 0 && (
+                        <Badge pill bg='warning'>
+                          {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                        </Badge>
+                      )}
                     </Link>
-                  )}
+                    {userInfo ? (
+                      <NavDropdown title= {<span style={{color:"white"}}>{userInfo.name}</span>} id="basic-nav-dropdown">
+                        <LinkContainer to='/profile'>
+                          <NavDropdown.Item>User Profile</NavDropdown.Item>
+                        </LinkContainer>
+                        <LinkContainer to='/orderhistory'>
+                          <NavDropdown.Item>Order History</NavDropdown.Item>
+                        </LinkContainer>
+                        <NavDropdown.Divider />
+                        <Link 
+                        className='dropdown-item'
+                        to='#signout'
+                        onClick={signoutHandler}>
+                          Sing Out
+                        </Link>
+                      </NavDropdown>
+                    ) : (
+                      <Link className="nav-link" to='/signin'>
+                        <span style={{color:"white"}}>Sign In</span>
+                      </Link>
+                    )}
 
-                </Nav>
+                  </Nav>  
+                </Navbar.Collapse>
               </Container>
             </Navbar>
           </header>
@@ -91,7 +95,8 @@ function App() {
               <Route path='/shipping' element={<ShippingAddressScreen />} />
               <Route path='/payment' element={<PaymentMethodScreen />} />
               <Route path='/placeorder' element={<PlaceOrderScreen />} />
-              <Route path='/order' element={<OrderScreen />} />
+              <Route path='/order/:id' element={<OrderScreen />} />
+              <Route path='/orderhistory' element={<OrderHistoryScreen />} />
               <Route path='/' element={<HomeScreen />} />
             </Routes>
           </Container>

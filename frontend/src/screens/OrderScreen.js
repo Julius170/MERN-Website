@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { PayPalButtons, usePayPalScriptReducer } from '@payapl/react-paypal-js';
 import React, { useReducer, Link, useContext, useEffect } from 'react';
 import { Card, Col, ListGroup, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
@@ -9,7 +8,7 @@ import  MessageBox   from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
 import { toast } from 'react-toastify';
-
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 
 
 
@@ -44,7 +43,7 @@ export default function OrderScreen() {
     const { id: orderId } = params;
     const navigate = useNavigate();
 
-    const [{loading, error, order, success, loadingPay }, dispatch] = useReducer(reducer, {
+    const [{loading, error, order, successPay, loadingPay }, dispatch] = useReducer(reducer, {
         loading: true,
         order: {},
         error: '',
@@ -52,7 +51,7 @@ export default function OrderScreen() {
         loadingPay: false,
     });
 
-const [{ isPending}, paypalDispatch] = usePayPalScriptReducer();
+const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
     function createOrder(data, actions) {
         return actions.order
@@ -95,7 +94,7 @@ const [{ isPending}, paypalDispatch] = usePayPalScriptReducer();
 useEffect( () => {
     const fetchOrder = async() => {
         try {
-            dispatch({type: 'ETCH_REQUEST' });
+            dispatch({type: 'FETCH_REQUEST' });
             const { data } = await axios.get(`http://localhost:5000/api/orders/${orderId}`, {
                 headers: { authorization: `Bearer ${userInfo.token}`}  
             
@@ -113,9 +112,9 @@ useEffect( () => {
     if ( !order.id || successPay || (order._id && order.id !== orderId)) {
             fetchOrder();
         } else {
-            laodPaypalScript = async () => {
-                const { data: clientId } = await axios.get('/api/keys/paypal', {
-                    headers:{ authorization: `Brearer ${usertoken}` },
+            const loadPaypalScript = async () => {
+                const { data: clientId } = await axios.get('http://localhost:5000/api/keys/paypal', {
+                    headers:{ authorization: `Brearer ${userInfo.token}` },
                 });
                 paypalDispatch({
                     type: 'resetOptions',
@@ -126,7 +125,7 @@ useEffect( () => {
                 });
                 paypalDispatch ({ type: 'setLoadingStatus', value: 'pending' });
             }
-            loadingPayoalScript();
+            loadPaypalScript();
         }
     },[order, userInfo, orderId, navigate, paypalDispatch]);
 
