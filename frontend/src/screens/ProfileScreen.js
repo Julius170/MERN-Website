@@ -28,9 +28,9 @@ export default function ProfileScreen() {
     const [ password, setPassword ] = useState('');
     const [ confirmPassword, setConfirmPassword ] = useState('');
     
-    const [{ loadingUpdate }, dispatch] = useReducer( reducer, {
+const [ dispatch] = useReducer( reducer, {
         loadingUpdate: false
-    }) 
+    });
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -88,12 +88,14 @@ export default function ProfileScreen() {
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                 type="password"
+                value = {password}
                 onChange={(e) => setPassword(e.target.value)} />
             </Form.Group>
             <Form.Group className='mb-3' controlId='confirmPassword'>
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control
                 type="password"
+                value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)} />
             </Form.Group>
             <div className='mb-3'>
