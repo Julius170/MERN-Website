@@ -1,0 +1,27 @@
+{
+  "name": "mern",
+  "version": "1.0.0",
+  "description": "A Full stack MERN Ecommerce Website",
+  "main": "index.js",
+  "dependencies": {
+    "asynckit": "^0.4.0",
+    "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "cd backend %% npm install && cd ../frontend && npm install && npm run build",
+    "start": "node backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Julius170/MERN-Website.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Julius170/MERN-Website/issues"
+  },
+  "homepage": "https://github.com/Julius170/MERN-Website#readme"
+}
