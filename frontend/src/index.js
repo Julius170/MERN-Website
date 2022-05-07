@@ -13,8 +13,10 @@ root.render(
     <StoreProvider>
 
     <HelmetProvider>
+    <PaypalScriptProvider defendLoading={true}>
     <App />
 
+    </PaypalScriptProvider>
     </HelmetProvider>
     </StoreProvider>
   </React.StrictMode>
