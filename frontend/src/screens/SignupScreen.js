@@ -22,7 +22,6 @@ export default function SignupScreen() {
     const [confirmPassword, setConfirmPassword] = useState('');
     
     const submitHandler = async (e) => {
-        e.preventDefault();
         if (password !== confirmPassword) {
             toast.error('Password do not match');
             return;
