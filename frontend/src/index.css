@@ -93,3 +93,7 @@ main {
 .active-nav {
   left: 0;
 }
+
+.text-bold {
+  font-weight: bold;
+}
