@@ -39,13 +39,13 @@ function App() {
     useEffect(() => {
       const fetchCategories = async () => {
         try {
-          const { data } = await axios.get(`http://localhost:5000/api/product/categories`)
-          setCategories(data);
+          const { categories } = await axios.get(`http://localhost:5000/api/product/categories`)
+          setCategories(categories);
         }catch (err) {
           toast.error(getError(err));
         }
       };
-      fetchCategories();
+      fetchCategories()
           }, []);
   return (
      <BrowserRouter>
@@ -117,7 +117,7 @@ function App() {
           }>
             <Nav className='flex-column text-white w-100 p-2'>
               <Nav.Item>
-                <strong>Categories</strong>
+                <strong>Categories</strong> 
               </Nav.Item>
               {categories.map((category) => (
                 <Nav.Item key={category}>

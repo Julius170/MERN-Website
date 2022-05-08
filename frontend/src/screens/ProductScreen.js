@@ -154,4 +154,4 @@ const addToCartHandler = async() => {
     
 }
 
-export default ProductScreen();
+export default ProductScreen;
