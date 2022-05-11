@@ -21,6 +21,13 @@ import { getError } from './utils';
 import axios from 'axios';
 import SearchBox from './components/SearchBox';
 import SearchScreen from './screens/SearchScreen';
+import ProtectedRoute from './components/ProtectedRoute';
+import DashboardScreen from './screens/DashboardScreen';
+import AdminRoute from './components/AdminRoutes';
+
+
+
+
 
 function App() {
   const {state, dispatch: ctxDispatch } = useContext(Store); 
@@ -34,19 +41,19 @@ function App() {
       window.location.href = '/signin';
     };
     const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
-    const {categories,  setCategories } = useState([]);
+    const [categories,  setCategories ] = useState([]);
 
     useEffect(() => {
       const fetchCategories = async () => {
         try {
-          const { categories } = await axios.get(`http://localhost:5000/api/product/categories`)
-          setCategories(categories);
+          const { data } = await axios.get(`http://localhost:5000/api/product/categories`)
+          setCategories(data);
         }catch (err) {
           toast.error(getError(err));
         }
       };
-      fetchCategories()
-          }, []);
+      fetchCategories();
+          }, [ ]);
   return (
      <BrowserRouter>
       <div className={ sidebarIsOpen   
@@ -103,6 +110,22 @@ function App() {
                         <span style={{color:"white"}}>Sign In</span>
                       </Link>
                     )}
+                    {userInfo && userInfo.isAdmin &&(
+                      <NavDropdown title="Admin" id='adimin-nav-dropdown'>
+                        <LinkContainer to="/admin/dashboard">
+                          <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                        </LinkContainer>
+                         <LinkContainer to="/admin/productlist">
+                          <NavDropdown.Item>Products</NavDropdown.Item>
+                        </LinkContainer>
+                         <LinkContainer to="/admin/orderlist">
+                          <NavDropdown.Item>Orders</NavDropdown.Item>
+                        </LinkContainer>
+                         <LinkContainer to="/admin/userlist">
+                          <NavDropdown.Item>Users</NavDropdown.Item>
+                        </LinkContainer>
+                      </NavDropdown>
+                    )}
 
                   </Nav>  
                 </Navbar.Collapse>
@@ -143,17 +166,42 @@ function App() {
                 <Route path='/shipping' element={<ShippingAddressScreen />} />
                 <Route path='/payment' element={<PaymentMethodScreen />} />
                 <Route path='/placeorder' element={<PlaceOrderScreen />} />
-                <Route path='/order/:id' element={<OrderScreen />} />
-                <Route path='/orderhistory' element={<OrderHistoryScreen />} />
+                
+                <Route path='/order/:id' element={           
+                <ProtectedRoute>
+                  <OrderScreen /> 
+                </ProtectedRoute> } />
+                
+                <Route path='/orderhistory' element={
+                <ProtectedRoute>
+                  <OrderHistoryScreen /> 
+                </ProtectedRoute> } />
+                
+                
                 <Route path='/search' element={<SearchScreen />} />
-                <Route path='/profile' element={<ProfileScreen />} />
+                
+                <Route path='/profile' element={ 
+                <ProtectedRoute>
+                  <ProfileScreen /> 
+                </ProtectedRoute> }/>
+
+                  {/* Admin Routes */}
+
+                  <Route path='/admin/dashboard' element={
+                  <AdminRoute>
+                    <DashboardScreen />
+                  </AdminRoute>}
+                  ></Route>
+
                 <Route path='/' element={<HomeScreen />} />
+
               </Routes>
             </Container>
 
+
           </main>
           <footer>
-            <div className='text-center'> Julius Phensic @2022</div>
+            <div className='text-center'>Julius Phensic @2022</div>
           </footer>
         </div>
       </BrowserRouter>
