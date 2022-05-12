@@ -62,13 +62,13 @@ export default function PlaceOrderScreen() {
                         authorization: `Bearer ${userInfo.token}`,
                     },
                 }
-            );
+                );
+            console.log("Suppose to show");
             ctxDispatch({type: 'CART_CLEAR'});
             dispatch({type: 'CREATE_SUCCESS'});
             localStorage.removeItem('cartItems');
             navigate(`http://localhost:5000/order/${data.order._id}`);
             alert("Suppose to show");
-            console.log("Suppose to show");
 
 
         }catch (err) {
@@ -91,6 +91,8 @@ export default function PlaceOrderScreen() {
             <title>Preview Order</title>
         </Helmet>
         <h1 className='my-3'><b>Preview Order</b></h1>
+        {loading && <LoadingBox></LoadingBox>}
+
         <Row>
             <Col md={8}>
             <Card className='mb-3' >
@@ -177,7 +179,6 @@ export default function PlaceOrderScreen() {
                             disabled={cart.cartItems.length === 0}>
                                 Place Order
                             </Button>
-                            {loading && <LoadingBox></LoadingBox>}
                             </div>
                         </ListGroup.Item>
                     </ListGroup>
