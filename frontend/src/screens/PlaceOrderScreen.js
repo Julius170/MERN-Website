@@ -14,9 +14,9 @@ const reducer = ( state, action ) => {
     switch (action.type) {
         case 'CREATE_REQUEST':
             return{...state, loading: true};
-        case 'CREAT_SUCCESS':
+        case 'CREATE_SUCCESS':
             return {...state, loading: false };
-        case 'CREAT_FAIL':
+        case 'CREATE_FAIL':
             return {...state, loading: false };
         default:
             return state;
@@ -45,6 +45,7 @@ export default function PlaceOrderScreen() {
     cart.totalPrice = cart.itemPrice + cart.shippingPrice + cart.taxPrice;
 
     const placeOrderHandler = async () => {
+        console.log("yes now");
         try {
             dispatch({type: 'CREATE_REQUEST' });
             const {data} = await Axios.post(
@@ -63,7 +64,7 @@ export default function PlaceOrderScreen() {
                     },
                 }
                 );
-            console.log("Suppose to show");
+            console.log();
             ctxDispatch({type: 'CART_CLEAR'});
             dispatch({type: 'CREATE_SUCCESS'});
             localStorage.removeItem('cartItems');

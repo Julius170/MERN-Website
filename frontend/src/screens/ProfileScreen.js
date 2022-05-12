@@ -28,8 +28,8 @@ export default function ProfileScreen() {
     const [ password, setPassword ] = useState('');
     const [ confirmPassword, setConfirmPassword ] = useState('');
     
-const [ dispatch] = useReducer( reducer, {
-        loadingUpdate: false
+const [ {loadingUpdate}, dispatch] = useReducer( reducer, {
+        loadingUpdate: false,
     });
 
     const submitHandler = async (e) => {

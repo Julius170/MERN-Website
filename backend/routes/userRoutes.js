@@ -72,6 +72,6 @@ userRouter.put(
     } else {
         res.status(404).send({message: "User Not Found"})
     }
-}))
+}));
     
 export default userRouter; 
